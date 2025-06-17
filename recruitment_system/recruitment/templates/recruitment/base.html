@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Talentscope AI{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <header class="bg-blue-900 text-white py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Talentscope AI</h1>
+            <nav>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'recruitment:logout' %}" method="post" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded">Logout</button>
+                    </form>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                    <div class="bg-{% if message.tags == 'error' %}red-100 border-red-400 text-red-700{% elif message.tags == 'success' %}green-100 border-green-400 text-green-700{% else %}yellow-100 border-yellow-400 text-yellow-700{% endif %} border px-4 py-3 rounded">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="bg-blue-900 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p>AI-Powered Job Application Screening System</p>
+        </div>
+    </footer>
+</body>
+</html>

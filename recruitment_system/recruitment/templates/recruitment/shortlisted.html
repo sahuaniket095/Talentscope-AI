@@ -1,0 +1,43 @@
+
+{% extends 'recruitment/base.html' %}
+
+{% block title %}Shortlisted Candidates{% endblock %}
+
+{% block content %}
+<div class="bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold text-blue-900 mb-4">Shortlisted Candidates for {{ job_title }}</h2>
+    {% if candidates %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200">
+                <thead class="bg-blue-900 text-white">
+                    <tr>
+                        <th class="py-3 px-4 text-left">Name</th>
+                        <th class="py-3 px-4 text-left">Email</th>
+                        <th class="py-3 px-4 text-left">Match Score</th>
+                        <th class="py-3 px-4 text-left">CV</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for candidate in candidates %}
+                        <tr class="border-b">
+                            <td class="py-3 px-4">{{ candidate.name }}</td>
+                            <td class="py-3 px-4">{{ candidate.email }}</td>
+                            <td class="py-3 px-4">{{ candidate.match_score }} %</td>
+                            <td class="py-3 px-4">
+                                <a href="{% url 'recruitment:download_cv' candidate.cv_file %}" class="bg-blue-900 hover:bg-blue-800 text-white font-semibold py-1 px-3 rounded text-sm">Download</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4 flex space-x-4">
+            <a href="{% url 'recruitment:send_candidate_email' %}" class="bg-blue-900 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded">Send Email</a>
+            <a href="{% url 'recruitment:upload' %}" class="bg-blue-900 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded">Back to Upload</a>
+        </div>
+    {% else %}
+        <p class="text-gray-600">No candidates met the 70% match score threshold.</p>
+        <a href="{% url 'recruitment:upload' %}" class="bg-blue-900 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded mt-4 inline-block">Back to Upload</a>
+    {% endif %}
+</div>
+{% endblock %}

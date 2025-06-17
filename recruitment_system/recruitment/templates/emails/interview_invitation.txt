@@ -1,0 +1,12 @@
+Dear {{ candidate_name }},
+
+Congratulations! You have been shortlisted for the {{ job_title }} position. Please select a suitable time for your interview from the following options:
+
+{% for time in interview_times %}
+- {{ time }}
+{% endfor %}
+
+Please reply to this email to confirm your preferred time.
+
+Best regards,
+Recruitment Team

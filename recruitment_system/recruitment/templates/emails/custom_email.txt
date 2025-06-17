@@ -1,0 +1,6 @@
+Dear {{ candidate_name }},
+
+{{ message }}
+
+Best regards,
+Recruitment Team
