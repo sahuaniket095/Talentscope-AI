@@ -169,7 +169,6 @@ The recruitment process often involves manually reviewing numerous job descripti
 4. **Set Up Environment Variables**:
    - Create a `.env` file in `recruitment_system`:
      ```env
-     SECRET_KEY=your_django_secret_key
      DEBUG=True
      ALLOWED_HOSTS=127.0.0.1,localhost
      DB_NAME=your_db_name
